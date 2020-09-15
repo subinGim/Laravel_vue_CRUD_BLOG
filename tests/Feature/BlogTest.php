@@ -46,7 +46,7 @@ class BlogTest extends TestCase
         
         $this->post('/add', $post);
 
-        $this->assertEquals(1,Post::all()->count());
+        $this->assertEquals(1, Post::all()->count());
     }
 
     public function a_user_can_update_post()

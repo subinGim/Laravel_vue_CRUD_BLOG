@@ -16,15 +16,6 @@ class PostController extends Controller
      */
     public function index()
     {
-        //수정
-        // if($posts = Redis::get('posts')){
-        //     return json_decode($posts);
-        // }
-
-        // $posts = Post::all();
-        // Redis::set('posts', json_encode($posts));
-        // return $posts;
-
         $posts = Post::all();
         Redis::set('posts', json_encode($posts));
         $posts = Redis::get('posts');
@@ -46,8 +37,8 @@ class PostController extends Controller
         $redis = Redis::connection();
         //글 작성
         $post = new Post([
-            'title' => $request->input('title'),
-            'content' => $request->input('content'),
+            'title' => $request->input('title'), 
+            'content' => $request->input('content'), 
             'author' => $request->input('author')
         ]);
         $post->save();
