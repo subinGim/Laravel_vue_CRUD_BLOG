@@ -17,7 +17,7 @@
                         <p><textarea cols="150" rows="10" placeholder="글 내용을 입력해주세요." v-model="post.content" class="form-control"></textarea></p>
                     
                     </div>
-                    <div style="float-right">
+                    <div class="float-right">
                         <button type="submit" class="btn btn-primary">Add Post</button>
                     </div>
                 </form>
