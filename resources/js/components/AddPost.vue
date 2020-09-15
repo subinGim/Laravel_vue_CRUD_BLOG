@@ -6,16 +6,16 @@
                 <form @submit.prevent="addPost">
                     <div class="form-group">
                         <label>Title</label>
-                        <input type="text" class="form-control" v-model="post.title">
+                        <input type="text" class="form-control" placeholder="제목을 입력해주세요." v-model="post.title">
                     </div>
                     <div class="form-group">
                         <label>Author</label>
-                        <input type="text" class="form-control" v-model="post.author">
+                        <input type="text" class="form-control" placeholder="작성자 성함을 입력해주세요." v-model="post.author">
                     </div>
                     <div class="form-group">
                         <label>Content</label>
-                        <p><textarea cols="150" rows="10" placeholder="내용을 입력해주세요." v-model="post.content" class="form-control"></textarea></p>
-                        <!-- <input type="text" class="form-control" v-model="post.content"> -->
+                        <p><textarea cols="150" rows="10" placeholder="글 내용을 입력해주세요." v-model="post.content" class="form-control"></textarea></p>
+                    
                     </div>
                     <div style="float-right">
                         <button type="submit" class="btn btn-primary">Add Post</button>

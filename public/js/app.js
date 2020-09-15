@@ -2039,12 +2039,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37852,7 +37846,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: { type: "text", placeholder: "제목을 입력해주세요." },
                   domProps: { value: _vm.post.title },
                   on: {
                     input: function($event) {
@@ -37878,7 +37872,10 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text" },
+                  attrs: {
+                    type: "text",
+                    placeholder: "작성자 성함을 입력해주세요."
+                  },
                   domProps: { value: _vm.post.author },
                   on: {
                     input: function($event) {
@@ -37908,7 +37905,7 @@ var render = function() {
                     attrs: {
                       cols: "150",
                       rows: "10",
-                      placeholder: "내용을 입력해주세요."
+                      placeholder: "글 내용을 입력해주세요."
                     },
                     domProps: { value: _vm.post.content },
                     on: {

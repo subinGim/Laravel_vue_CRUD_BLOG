@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label>Content</label>
                         <p><textarea cols="150" rows="10" v-model="post.content" class="form-control"></textarea></p>
-                        <!-- <input type="textarea" class="form-control" v-model="post.content"> -->
+                        
                     </div>
                     <div class="float-right">
                         <button type="submit" class="btn btn-primary">Update Post</button>

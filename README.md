@@ -16,13 +16,10 @@
 
 ---
 
-## ARCHITECHURE
-
----
-
 ## HOW TO RUN
 
-1. 본인의 로컬 MySQL 커넥션 정보를 `\.env`에서 다음과 같이 설정합니다.  
+1. 루트 폴더 하위에 `.env`파일을 만들고 `.env.example`의 내용을 복사, 붙여넣습니다.  
+`\.env`에서 다음의 항목을 본인의 로컬 MySQL 커넥션 정보에 맞게 예시와 같이 설정합니다.  
 ```{.no-highlight}
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -32,22 +29,37 @@ DB_USERNAME=root
 DB_PASSWORD=접속 비밀번호
 ```
 2. redis-server가 실행중임을 확인합니다.  
-(window10 기준) redis-server.exe가 실행중이어야 하며, 그렇지 못한 경우 3번 과정에서   
+(window10 기준) redis-server.exe가 실행중이어야 하며, 그렇지 못한 경우 3번 명령줄 실행 시 웹페이지에서 
 `Predis\Connection\ConnectionException`가 발생할 수 있습니다.  
 
-3. 다음 명령을 통해 터미널에서 Laravel 로컬 서버를 실행합니다.  
+3. 다음 명령을 통해 터미널에서 Laravel 서버를 실행합니다.  
+ 
 ```bash
 php artisan serve
 ```
+4. 웹 브라우저에서 `http://127.0.0.1:8000`로 접속할 수 있습니다.   
+
+---
+
+## PREVIEW
+
+#### 메인페이지 - 글 목록 확인 
+![Board_main](https://user-images.githubusercontent.com/41335539/93220221-2e809800-f7a7-11ea-9c63-a0aaadcefa70.JPG)
+
+#### 글 작성 페이지 - 네비게이션 바의 'Add Post' 버튼으로 접근.
+![image](https://user-images.githubusercontent.com/41335539/93220718-d8f8bb00-f7a7-11ea-8dce-fcd74b3585d4.png)
+
+#### 글 수정 페이지 - 목록페이지에서 해당 글의 제목 클릭 시 접근.
+![image](https://user-images.githubusercontent.com/41335539/93220628-bf577380-f7a7-11ea-9ecf-5ae1d89bfc02.png)
 
 ---
 
 ## TDD by Phpunit
 
-게시판의 주 기능은 글 작성(CREATE) / 읽기(READ) / 수정(UADATE) / 삭제(DELETE) 네 가지로 나뉩니다.   
-따라서 testcase를 위 네 기능에 맞추어 설계하였습니다.  
+게시판은 글 작성(CREATE) / 읽기(READ) / 수정(UADATE) / 삭제(DELETE) 네 가지 요구사항으로 나뉩니다.   
+따라서 위 네 기능에 맞추어 TDD를 설계하여 구현하였습니다.  
 
-각 기능이 동작해야 하는 조건과 phpunit 코드는 다음과 같습니다.  
+각 기능이 동작해야 하는 조건 및 phpunit 코드는 다음과 같습니다.  
 
 > 해당 코드들은 `\tests\Feature\BlogTest.php`에 위치합니다.  
 
@@ -114,7 +126,7 @@ public function a_user_can_update_post()
 ```
 #### DELETE
 
-[ ] 사용자는 `Delete`버튼을 통해 해당 글을 삭제할 수 있어야 한다. 
+- [x] 사용자는 `Delete`버튼을 통해 해당 글을 삭제할 수 있어야 한다. 
 ```PHP
 public function a_user_can_delete_post()
     {
