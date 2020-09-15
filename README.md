@@ -47,7 +47,7 @@ php artisan serve
 ![Board_main](https://user-images.githubusercontent.com/41335539/93220221-2e809800-f7a7-11ea-9c63-a0aaadcefa70.JPG)
 
 #### 글 작성 페이지 - 네비게이션 바의 'Add Post' 버튼으로 접근.
-![image](https://user-images.githubusercontent.com/41335539/93220718-d8f8bb00-f7a7-11ea-8dce-fcd74b3585d4.png)
+![image](https://user-images.githubusercontent.com/41335539/93221822-2aee1080-f7a9-11ea-9bdf-8d40c3d97edf.png)
 
 #### 글 수정 페이지 - 목록페이지에서 해당 글의 제목 클릭 시 접근.
 ![image](https://user-images.githubusercontent.com/41335539/93220628-bf577380-f7a7-11ea-9ecf-5ae1d89bfc02.png)
