@@ -12,7 +12,11 @@
 + composer 1.10.10
 + redis-server 3.0.504 (Window version)
 + MySQL 8.0.12 (local database)
-+ VSCode 
++ VSCode 1.49
+
+> 왜 'Redis'를 사용했는가?   
+> 이 프로젝트의 가장 큰 요구사항은 글이 생성, 수정, 삭제 될 때 DB값들이 변경되며, 그에 따른 결과가 메인 페이지에서 출력되어야 한다는 것입니다. 게시판 기능은 사용자의 입력과 출력이 주가 되며, 그에 따라 DB 접근 횟수, 효율을 생각해볼 필요가 있습니다. 따라서, 필요시(데이터가 변경되는 경우)에만 DB로부터 값을 받아오고 나머지의 경우 Cache에 저장된 값을 불러옴으로써 입출력이 효율적인 구현을 하고 싶었습니다. 또한 redis는 laravel에서 지원하는 cache 저장소 중에 하나로, 단순하게 설계된 이 게시판 DB의 보조 역할로서 적합하다고 생각하였습니다.  
+> 저는 컨트롤러에서 글 목록 값을 의미하는 키 값`post.all`의 존재 유무에 따라 DB 조회 또는 캐시 조회로 이어지도록 구현하였습니다.  
 
 ---
 
@@ -32,12 +36,26 @@ DB_PASSWORD=접속 비밀번호
 (window10 기준) redis-server.exe가 실행중이어야 하며, 그렇지 못한 경우 3번 명령줄 실행 시 웹페이지에서 
 `Predis\Connection\ConnectionException`가 발생할 수 있습니다.  
 
-3. 다음 명령을 통해 터미널에서 Laravel 서버를 실행합니다.  
+3. 캐시 저장소를 지정해주어야 합니다. 그 전에 `predis`가 설치되어 있지 않다면 다음 명령을 통해 설치해주세요.  
+```bash
+composer require predis/predis
+```
+
+그리고 `.env`파일에서 `CACHE_DRIVER=redis`와 같이 변경합니다.  
+
+`config/cache.php`파일에서도 driver와 connection 항목을 다음과 같이 변경합니다.  
+```{.no-highlight}
+'redis' => [
+            'driver' => 'redis',
+            'connection' => 'default',
+        ],
+```
+4. 다음 명령을 통해 터미널에서 Laravel 서버를 실행합니다.  
  
 ```bash
 php artisan serve
 ```
-4. 웹 브라우저에서 `http://127.0.0.1:8000`로 접속할 수 있습니다.   
+5. 웹 브라우저에서 `http://127.0.0.1:8000`로 접속할 수 있습니다.   
 
 ---
 

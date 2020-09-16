@@ -6,6 +6,8 @@ use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostCollection;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
+
 
 class PostController extends Controller
 {
@@ -16,14 +18,15 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        Redis::set('posts', json_encode($posts));
-        $posts = Redis::get('posts');
-        return $posts;
-
-        //모든 글 가져오기
-        // $posts = Post::all()->toArray();
-        // return array_reverse($posts);
+        
+        if(Cache::has('posts.all') == null)
+        {
+            $posts = Post::all()->toArray();
+            Cache::store('redis')->put('posts.all', json_encode($posts), 1800); // 30분동안 캐쉬 유지
+        }
+        $value = Cache::get('posts.all');
+        return $value;
+        
     }
 
 
@@ -34,7 +37,6 @@ class PostController extends Controller
      */
     public function add(Request $request)
     {
-        $redis = Redis::connection();
         //글 작성
         $post = new Post([
             'title' => $request->input('title'), 
@@ -44,7 +46,7 @@ class PostController extends Controller
         $post->save();
 
         //redis 코드 추가
-        $redis->append('posts', $post);
+        Cache::forget('posts.all');
 
         return response()->json('The Post successfully added');
     }
@@ -72,13 +74,12 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $redis = Redis::connection();
         //글 갱신
         $post = Post::find($id);
         $post->update($request->all());
 
         //redis 코드 추가
-        $redis->append('posts', $post);
+        Cache::forget('posts.all');
 
         return response()->json('The post successfully updated');
     }
@@ -94,6 +95,8 @@ class PostController extends Controller
         //글 삭제
         $post = Post::find($id);
         $post->delete();
+
+        Cache::forget('posts.all');
 
         return response()->json('The post successfully deleted');
     }
