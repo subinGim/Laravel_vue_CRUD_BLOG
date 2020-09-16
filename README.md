@@ -22,8 +22,19 @@
 
 ## HOW TO RUN
 
-1. 루트 폴더 하위에 `.env`파일을 만들고 `.env.example`의 내용을 복사, 붙여넣습니다.  
-`\.env`에서 다음의 항목을 본인의 로컬 MySQL 커넥션 정보에 맞게 예시와 같이 설정합니다.  
+0. `git clone` 후 프로젝트 루트 경로로 이동합니다.
+
+1. composer와 npm을 설치해주세요. `vendor`, `node_modules`폴더가 생성됩니다.  
+```bash
+composer install
+```
+```bash
+npm install
+```
+2. 루트 폴더 하위에 `.env`파일을 만들고 `.env.example`의 내용을 복사, 붙여넣습니다.  
+
+3. 이 프로젝트와 연결할 새 database를 생성 후 해당 정보를 `.env`파일에 업로드합니다. 예시는 다음과 같습니다.  
+
 ```{.no-highlight}
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
@@ -32,30 +43,47 @@ DB_DATABASE=데이터베이스 이름
 DB_USERNAME=root
 DB_PASSWORD=접속 비밀번호
 ```
-2. redis-server가 실행중임을 확인합니다.  
-(window10 기준) redis-server.exe가 실행중이어야 하며, 그렇지 못한 경우 3번 명령줄 실행 시 웹페이지에서 
-`Predis\Connection\ConnectionException`가 발생할 수 있습니다.  
 
-3. 캐시 저장소를 지정해주어야 합니다. 그 전에 `predis`가 설치되어 있지 않다면 다음 명령을 통해 설치해주세요.  
+4. 앱 암호화 키를 생성합니다.  
+```bash
+php artisan key:generate
+```
+
+5. 데이터베이스에 테이블 생성을 위해 migrate 시켜줍니다. 
+```bash
+php artisan migrate
+```
+
+6. 캐시 저장소를 지정해주어야 합니다. 그 전에 `predis`가 설치되어 있지 않다면 다음 명령을 통해 설치해주세요.  
 ```bash
 composer require predis/predis
 ```
 
-그리고 `.env`파일에서 `CACHE_DRIVER=redis`와 같이 변경합니다.  
+`.env`파일에서 `CACHE_DRIVER=redis`와 같이 변경해준 뒤,  
 
-`config/cache.php`파일에서도 driver와 connection 항목을 다음과 같이 변경합니다.  
+`config/cache.php`파일에서 driver와 connection 항목이 다음과 같이 설정되어 있는지 확인합니다.  
 ```{.no-highlight}
 'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
         ],
 ```
-4. 다음 명령을 통해 터미널에서 Laravel 서버를 실행합니다.  
+
+7. 위에서 설치한 npm 모듈과 laravel프로젝트의 환경설정을 합치기 위해 다음 명령을 수행합니다.  
+```bash 
+npm run dev
+```
+
+8. redis-server가 실행중임을 확인합니다.  
+(window10 기준) redis-server.exe가 실행중이어야 하며, 그렇지 못한 경우 3번 명령줄 실행 시 웹페이지에서 
+`Predis\Connection\ConnectionException`가 발생할 수 있습니다.  
+
+9. 다음 명령을 통해 터미널에서 Laravel 서버를 실행합니다.  
  
 ```bash
 php artisan serve
 ```
-5. 웹 브라우저에서 `http://127.0.0.1:8000`로 접속할 수 있습니다.   
+10. 웹 브라우저에서 `http://127.0.0.1:8000`로 접속할 수 있습니다.   
 
 ---
 
